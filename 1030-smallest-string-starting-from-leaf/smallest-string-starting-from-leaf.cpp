@@ -11,26 +11,24 @@
  */
 class Solution {
 public:
-    void recur(TreeNode *root, set<string> &s, string temp, string &mini){
+    void recur(TreeNode *root, string temp, string &mini){
         if(root == NULL) return;
         char chr = 'a' + root->val;
         temp = temp + chr;
         if(root -> left == NULL && root -> right == NULL){
             reverse(temp.begin(), temp.end());
-            // s.insert(temp);
             if(mini == "") mini = temp;
             else mini = min(mini, temp);
             return;
         }
-        recur(root->left,s,temp,mini);
-        recur(root->right,s,temp,mini);
+        recur(root->left,temp,mini);
+        recur(root->right,temp,mini);
 
     }
     string smallestFromLeaf(TreeNode* root) {
         set<string> s;
         string mini = "";
-        recur(root, s, "", mini);
-        // return *s.begin();
+        recur(root, "", mini);
         return mini;
     }
 };
