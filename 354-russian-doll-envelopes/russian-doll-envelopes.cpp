@@ -10,6 +10,8 @@ public:
         return dp[i][prev] = max(sum1, solve(envelopes, i-1, prev, dp));
     }
     int maxEnvelopes(vector<vector<int>>& envelopes) {
+
+        // Wrong approach - TLE, Memory exceeded limit
         // vector<vector<int>> arr(envelopes.begin(), envelopes.end());
         // arr.push_back({INT_MAX, INT_MAX});
         // sort(arr.begin(), arr.end());
