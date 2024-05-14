@@ -1,15 +1,17 @@
 class Solution {
 public:
-    int recur(vector<int> &nums, int i, int prev, vector<vector<int>> &dp){
-        if(i == nums.size()) return 0;
-        if(dp[i][prev+1] != -1) return dp[i][prev+1];
-        int take = 0;
-        if(prev == -1 || nums[i] > nums[prev]) take = 1 + recur(nums,i+1,i,dp);
-        return dp[i][prev+1] = max(take, recur(nums,i+1,prev,dp));
-    }
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
-        vector<vector<int>> dp(n, vector<int>(n, -1));
-        return recur(nums,0,-1,dp);
+        vector<int> dp(n, 1);
+        for(int i=0; i<n; i++){
+            for(int j=0; j<i; j++){
+                if(nums[j] < nums[i] && dp[i] < dp[j] + 1){
+                    dp[i] = dp[j] + 1;
+                }
+            }
+        }
+        int maxi = INT_MIN;
+        for(auto ele: dp) maxi = max(maxi, ele);
+        return maxi;
     }
 };
