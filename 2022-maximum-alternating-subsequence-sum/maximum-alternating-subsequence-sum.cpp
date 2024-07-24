@@ -9,8 +9,24 @@ public:
         long long notTake = recur(nums, dp, i+1, j);
         return dp[i][j] = max(take, notTake);
     }
+    long long tabular(vector<int> &nums){
+        int n = nums.size();
+        vector<long long> endEven(n, 0);
+        vector<long long> endOdd(n, 0);
+        endEven[0] = nums[0];
+        for(int i=1; i<n; i++){
+            endEven[i] = max(endEven[i-1], endOdd[i-1]+nums[i]);
+            endOdd[i] = max(endOdd[i-1], endEven[i-1]-nums[i]);
+        }
+        return max(endEven[n-1], endOdd[n-1]);
+    }
     long long maxAlternatingSum(vector<int>& nums) {
-        vector<vector<long long>> dp(nums.size(), vector<long long>(2, -1));
-        return recur(nums, dp, 0, 0);
+
+        // Memoization
+        // vector<vector<long long>> dp(nums.size(), vector<long long>(2, -1));
+        // return recur(nums, dp, 0, 0);
+
+        // Tabulation
+        return tabular(nums);
     }
 };
