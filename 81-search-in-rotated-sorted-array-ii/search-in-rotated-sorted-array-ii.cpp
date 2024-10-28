@@ -1,29 +1,28 @@
 class Solution {
 public:
-    int find_pivot(vector<int>&nums, int s, int e){
-        while(e > s && nums[e] == nums[e-1]) e--;
-        while(s < e && nums[s] == nums[s+1]) s++;
-        if(s > e) return nums.size()-1;
-        else if(s == e) return s;
-        else if(s+1 == e) return nums[e] >= nums[s] ? e : s;
-        int mid = (s+e)/2;
-        if(nums[mid] < nums[mid-1]) return mid-1;
-        else if(nums[mid] > nums[mid+1]) return mid;
-        else if(nums[mid] > nums[s]) return find_pivot(nums,mid+1,e);
-        else return find_pivot(nums,s,mid-1);
-    }
-    bool bin_search(vector<int> &nums, int s, int e, int target){
-        if(s > e) return false;
-        int mid = (s+e)/2;
-        if(nums[mid] == target) return true;
-        else if(target > nums[mid]) return bin_search(nums,mid+1,e,target);
-        else return bin_search(nums,s,mid-1,target);
-    }
     bool search(vector<int>& nums, int target) {
-        int start = 0;
-        int end = nums.size()-1;
-        int mid = find_pivot(nums, start, end);
-        if(target >= nums[start] && target <= nums[mid]) return bin_search(nums, start, mid, target);
-        else return bin_search(nums, mid+1, end, target);
+        int n = nums.size();
+        if(n == 1) return (nums[0] == target); 
+        if(nums[0] == target || nums[n-1] == target) return true;
+        int l=1, r=n-2;
+        while(l <= r){
+            // while(l <= r && nums[l+1] == nums[l]) l++;
+            // while(r >= l && nums[r-1] == nums[r]) r--;
+            // if(l > r) return (nums[l] == target);
+            int mid = (l+r)/2;
+            if(nums[mid] == target) return true;
+            if((nums[l] == nums[mid]) && (nums[r] == nums[mid])) {
+                l++;
+                r--;
+            }
+            else if(nums[mid] >= nums[l]){
+                if((target >= nums[l]) && (target < nums[mid])) r = mid-1; 
+                else l = mid+1;
+            } else {
+                if((target > nums[mid]) && (target <= nums[r])) l=mid+1; 
+                else r = mid-1;
+            }
+        }
+        return false;
     }
 };
