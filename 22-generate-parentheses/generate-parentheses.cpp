@@ -12,15 +12,14 @@ public:
         return;
     }
     void recur_2(int open, int close, string temp, int n, vector<string> &ans){
-        if (close > open) return;
         if(open == n && close == n){
             ans.push_back(temp);
             return;
         }
-
-        if(open > n) return recur_2(open, close+1, temp+')', n, ans);
-        recur_2(open+1, close, temp+'(', n, ans);
-        recur_2(open, close+1, temp+')', n, ans);
+        if(open < n) recur_2(open+1, close, temp+'(', n, ans);
+        if(close < open) recur_2(open, close+1, temp+')', n, ans);
+        // recur_2(open+1, close, temp+'(', n, ans);
+        // recur_2(open, close+1, temp+')', n, ans);
         return;
     }
     vector<string> generateParenthesis(int n) {
