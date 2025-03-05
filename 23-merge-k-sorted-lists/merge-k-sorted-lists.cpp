@@ -22,9 +22,10 @@ public:
             pq.pop();
             if(head == NULL){
                 head = p.second;
-                if(p.second->next) pq.push({p.second->next->val, p.second->next});
                 prev = p.second;
-            } else {
+                if(p.second->next) pq.push({p.second->next->val, p.second->next});
+            }
+            else {
                 prev->next = p.second;
                 if(p.second->next) pq.push({p.second->next->val, p.second->next});
                 prev = p.second;   
