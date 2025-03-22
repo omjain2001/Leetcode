@@ -1,3 +1,4 @@
+from collections import deque
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
 
@@ -7,7 +8,7 @@ class Solution:
         r = len(grid)
         c = len(grid[0])
 
-        queue = []
+        queue = deque()
         for i in range(r):
             for j in range(c):
                 if grid[i][j] == 2:
@@ -18,7 +19,7 @@ class Solution:
             count = len(queue)
             isFresh = False
             while(count):
-                i,j = queue.pop(0)
+                i,j = queue.popleft()
                 if i > 0 and grid[i-1][j] == 1:
                     queue.append((i-1,j))
                     grid[i-1][j] = 2
