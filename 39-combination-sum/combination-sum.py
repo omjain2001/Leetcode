@@ -16,7 +16,6 @@ class Solution:
     
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         ans = []
-        candidates.sort()
         self.recur(len(candidates)-1, candidates, target, [], ans)
         return ans
         
