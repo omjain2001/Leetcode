@@ -6,19 +6,19 @@ class Solution:
         dp[n] = 0
         dp[n+1] = 0
 
-        # Recursion and memoization
-        def recur(i):
-            if i >= n:
-                return 0
+        # # Recursion and memoization
+        # def recur(i):
+        #     if i >= n:
+        #         return 0
             
-            if dp[i] != -1:
-                return dp[i]
+        #     if dp[i] != -1:
+        #         return dp[i]
             
-            dp[i] = max(nums[i] + recur(i+2), recur(i+1))
+        #     dp[i] = max(nums[i] + recur(i+2), recur(i+1))
 
-            return dp[i]
+        #     return dp[i]
         
-        return recur(0)
+        # return recur(0)
 
         # Tabulation
         for i in range(n-1, -1, -1):
