@@ -1,7 +1,7 @@
 class Solution:
     def change(self, amount: int, coins: List[int]) -> int:
 
-        coins.sort()
+        # coins.sort()
         dp = [[-1] * (amount+1) for _ in range(len(coins)+1)]
 
         def recur(i, amt):
