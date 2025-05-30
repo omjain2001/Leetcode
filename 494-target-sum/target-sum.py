@@ -21,15 +21,15 @@ class Solution:
 
 
         # Tabulation
-        dp = [defaultdict(int) for _ in range(len(nums) + 1)]
-        dp[0][0] = 1 # When nums is empty and target is 0, there is only one possible way
+        # dp = [defaultdict(int) for _ in range(len(nums) + 1)]
+        # dp[0][0] = 1 # When nums is empty and target is 0, there is only one possible way
 
-        for i in range(len(nums)):
-            for curr_sum, count in dp[i].items():
-                dp[i+1][curr_sum - nums[i]] += count
-                dp[i+1][curr_sum + nums[i]] += count
+        # for i in range(len(nums)):
+        #     for curr_sum, count in dp[i].items():
+        #         dp[i+1][curr_sum - nums[i]] += count
+        #         dp[i+1][curr_sum + nums[i]] += count
         
-        return dp[len(nums)][target]
+        # return dp[len(nums)][target]
 
         # Tabulation (with optimized memory - only previous row is required instead of entire dictionary)
         dp = defaultdict()
