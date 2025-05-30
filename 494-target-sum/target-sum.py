@@ -31,5 +31,19 @@ class Solution:
         
         return dp[len(nums)][target]
 
+        # Tabulation (with optimized memory - only previous row is required instead of entire dictionary)
+        dp = defaultdict()
+        dp[0] = 1
+
+        for i in range(len(nums)):
+            new_dp = defaultdict(int)
+            for curr_sum, count in dp.items():
+                new_dp[curr_sum + nums[i]] += count
+                new_dp[curr_sum - nums[i]] += count
+            dp = new_dp
+        
+        return dp[target]
+                
+
             
         
