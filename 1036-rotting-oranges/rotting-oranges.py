@@ -37,7 +37,7 @@ class Solution:
                     grid[i][j+1] = 2
                     isFresh = True
                 count -= 1
-            if isFresh:
+            if len(queue) > 0:
                 time += 1
         for i in range(r):
             for j in range(c):
