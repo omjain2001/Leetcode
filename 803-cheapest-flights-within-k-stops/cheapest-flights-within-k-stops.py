@@ -23,7 +23,7 @@ class Solution:
                 continue
 
             for ele in adj[node]:
-                if ele[1] + d < dist[ele[0]] and stops <= k:
+                if ele[1] + d < dist[ele[0]]:
                     dist[ele[0]] = ele[1] + d
                     q.append((stops+1, ele[0], dist[ele[0]]))
         
