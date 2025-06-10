@@ -14,7 +14,8 @@ class Solution:
         
         # Update maximum
         self.maxi = max(self.maxi, left + right + root.val)
-        val = max(root.val, root.val + max(left, right))
+        # val = max(root.val, root.val + max(left, right))
+        val = root.val + max(left, right)
         if val < 0:
             return 0
         return val
