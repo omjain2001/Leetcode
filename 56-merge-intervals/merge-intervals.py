@@ -9,13 +9,22 @@ class Solution:
         idx = 0
         ans = []
         while(idx < len(intervals)):
-            while(idx < len(intervals) and end >= intervals[idx][0]):
+            # while(idx < len(intervals) and end >= intervals[idx][0]):
+            #     end = max(end, intervals[idx][1])
+            #     idx += 1
+            # ans.append([start, end])
+            # if idx < len(intervals):
+            #     start = intervals[idx][0]
+            #     end = intervals[idx][1]
+            if intervals[idx][0] <= end:
                 end = max(end, intervals[idx][1])
-                idx += 1
-            ans.append([start, end])
-            if idx < len(intervals):
+            else:
+                ans.append([start, end])
                 start = intervals[idx][0]
                 end = intervals[idx][1]
+            idx += 1
+        
+        ans.append([start, end])
         
         return ans
             
