@@ -72,15 +72,14 @@ class LRUCache:
 
     def put(self, key: int, value: int) -> None:
         if key in self.keys:
-            self.keys[key].val = value
             self.removeNode(self.keys[key])
-            self.keys[key] = self.insertNode(key, value)
-        elif len(self.keys) < self.cap:
-            self.keys[key] = self.insertNode(key, value)
-        else:
+            del self.keys[key]
+        
+        if len(self.keys) == self.cap:
             del self.keys[self.tail.left.key]
             self.removeNode(self.tail.left)
-            self.keys[key] = self.insertNode(key, value)
+
+        self.keys[key] = self.insertNode(key, value)
 
 
 # Your LRUCache object will be instantiated and called as such:
