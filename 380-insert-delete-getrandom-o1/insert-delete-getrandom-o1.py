@@ -2,22 +2,24 @@ import random
 class RandomizedSet:
 
     def __init__(self):
-        self.random_set = set()
+        self.data = set()
 
     def insert(self, val: int) -> bool:
-        if val in self.random_set:
+        if val in self.data:
             return False
-        self.random_set.add(val)
+        self.data.add(val)
         return True
 
     def remove(self, val: int) -> bool:
-        if val not in self.random_set:
+        if val not in self.data:
             return False
-        self.random_set.remove(val)
+        self.data.remove(val)
         return True
 
     def getRandom(self) -> int:
-        return random.choice(list(self.random_set))
+        num = random.choice(list(self.data))
+        return num
+        
 
 
 # Your RandomizedSet object will be instantiated and called as such:
