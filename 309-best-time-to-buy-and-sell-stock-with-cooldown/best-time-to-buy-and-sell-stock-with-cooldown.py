@@ -1,26 +1,24 @@
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-
-        dp = [[-1] * 2 for _ in range(len(prices))]
+        dp = [[-1] * 2 for _ in range(len(prices)+1)]
 
         def recur(i, buy):
             if i >= len(prices):
                 return 0
-            
+
             if dp[i][buy] != -1:
                 return dp[i][buy]
             
+            ans = 0
             if buy:
-                dp[i][buy] = max(-prices[i] + recur(i+1, not buy), recur(i+1, buy))
+                ans = max(-prices[i] + recur(i+1, 0), 0 + recur(i+1, 1))
             else:
-                dp[i][buy] = max(prices[i] + recur(i+2, not buy), recur(i+1, buy))
+                ans = max(prices[i] + recur(i+2, 1), 0 + recur(i+1, 0))
             
-            return dp[i][buy]
+            dp[i][buy] = ans
+
+            return ans
         
-        return recur(0, 1)
-        
-
-
-
-
+        result = recur(0, 1)
+        return result
         
