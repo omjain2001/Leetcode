@@ -1,23 +1,42 @@
+from collections import deque
 class Solution:
-    def exhaustive_search(self, idx, candidates, target, ans, comb):
-        if target == 0:
-            ans.append(comb)
-            return
-        if idx == len(candidates):
-            return
-        
-        # Take
-        if target >= candidates[idx]:
-            self.exhaustive_search(idx+1, candidates, target-candidates[idx], ans, comb + [candidates[idx]])
-        
-        while(idx+1 < len(candidates) and candidates[idx+1] == candidates[idx]):
-            idx += 1
-        # Don't take
-        self.exhaustive_search(idx+1, candidates, target, ans, comb)
-    
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        ans = []
+
+        # Length of candidates
+        n = len(candidates)
+        ans = deque()
+
+        if n == 0:
+            return []
+
+        # Sort the candidates
         candidates.sort()
-        self.exhaustive_search(0, candidates, target, ans, [])
-        return ans
+
+        result = set()
+
+        def recur(i, s):
+            if (s == 0): 
+                result.add(tuple([ele for ele in ans]))
+                return
+            if (i >= n or s < 0 or candidates[i] > s):
+                return
+            
+            # Take
+            ans.append(candidates[i])
+            recur(i+1, s-candidates[i])
+            ans.pop()
+
+            while((i+1) < n and candidates[i+1] == candidates[i]):
+                i += 1
+            recur(i+1, s)
+
+        recur(0,target)
+        
+        final_ans = []
+        for ele in result:
+            final_ans.append(list(ele))
+        
+        return final_ans
+        
+
         
