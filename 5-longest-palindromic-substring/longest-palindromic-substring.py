@@ -1,40 +1,43 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        max_count = 1
-        start = 0
-        end = 0
+
+        # Define function to compute length of palindrome
+        def palindrome_length(l, r):
+            length = 0
+            start = -1
+            end = -1
+            while(l >= 0 and r < len(s) and s[l] == s[r]):
+                if (r-l+1) > length:
+                    length = r-l+1
+                    start = l
+                    end = r
+                    l -= 1
+                    r += 1
+            return length, (start, end)
         
-        for i in range(len(s)):
 
-            # Odd palindrome
-            j = i-1
-            k = i+1
+        maxi = 0
+        start = -1
+        end = -1
+        i = 0
 
-            while(j >= 0 and k < len(s)):
-                if s[j] != s[k]:
-                    break
-                j -= 1
-                k += 1
-            
-            if (k-j-1) > max_count:
-                max_count = max(max_count, (k-j-1))
-                start = j+1
-                end = k-1
+        while(i < len(s)):
+            # Check for odd palindrome
+            length, pos = palindrome_length(i, i)
+            if length > maxi:
+                maxi = length
+                start = pos[0]
+                end = pos[1]
 
-            # Even palindrome
-            j = i
-            k = i+1
+            # Check for even palindrome
+            length, pos = palindrome_length(i, i+1)
+            if length > maxi:
+                maxi = length
+                start = pos[0]
+                end = pos[1]
 
-            while(j >= 0 and k < len(s)):
-                if s[j] != s[k]:
-                    break
-                j -= 1
-                k += 1
-            
-            if (k-j-1) > max_count:
-                max_count = max(max_count, (k-j-1))
-                start = j+1
-                end = k-1
+            i += 1
         
-        return s[start:end+1]
-        
+        if maxi == 0:
+            return ""
+        return s[start:end+1]        
