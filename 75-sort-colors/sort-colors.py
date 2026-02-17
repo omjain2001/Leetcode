@@ -4,19 +4,19 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
 
-        r = 0
-        w = 0
-        b = len(nums)-1
+        i = 0
+        k = len(nums)-1
 
-        while(w <= b):
-            if nums[w] == 0:
-                nums[w], nums[r] = nums[r], nums[w]
-                r += 1
-                w += 1
-            elif nums[w] == 1:
-                w += 1
-            elif nums[w] == 2:
-                nums[w], nums[b] = nums[b], nums[w]
-                b -= 1
+        j = 0
+        while(j <= k):
+            if nums[j] == 2:
+                nums[k], nums[j] = nums[j], nums[k]
+                k -= 1
+            elif nums[j] == 0:
+                nums[j], nums[i] = nums[i], nums[j]
+                i += 1
+                j += 1
+            else:
+                j += 1
         
         
