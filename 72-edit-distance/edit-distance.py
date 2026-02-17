@@ -1,28 +1,29 @@
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
 
-        dp = [[-1] * (len(word2)+1) for _ in range(len(word1)+1)]
-        for i in range(len(word2)+1):
-            dp[0][i] = i
-        
-        for i in range(len(word1)+1):
-            dp[i][0] = i
+        if len(word1) < len(word2):
+            self.minDistance(word2, word1)
 
-        def lcs(i, j):
-            if i < 0 or j < 0:
+        dp = [[-1]*len(word2) for _ in range(len(word1))]
+
+        def recur(i, j):
+            if i == len(word1) and j == len(word2):
                 return 0
+            elif i == len(word1):
+                return len(word2)-j
+            elif j == len(word2):
+                return len(word1)-i
+
             if dp[i][j] != -1:
                 return dp[i][j]
             
-            if word1[i-1] == word2[j-1]:
-                dp[i][j] = lcs(i-1, j-1)
+            if word1[i] == word2[j]:
+                dp[i][j] = recur(i+1, j+1)
             else:
-                dp[i][j] = 1 + min(lcs(i-1, j), lcs(i, j-1), lcs(i-1, j-1))
+                dp[i][j] = 1 + min(recur(i, j+1), recur(i+1, j), recur(i+1, j+1))
             
             return dp[i][j]
         
-        count = lcs(len(word1), len(word2))
+        return recur(0, 0)
 
-        return count
-        
         
