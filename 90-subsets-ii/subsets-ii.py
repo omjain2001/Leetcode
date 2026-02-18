@@ -1,14 +1,24 @@
 class Solution:
-    def recur(self, nums, idx, temp, ans):
-        ans.append(temp)        
-        for start in range(idx, len(nums)):
-            if start > idx and nums[start] == nums[start-1]:
-                continue
-            self.recur(nums, start+1, temp + [nums[start]], ans)
-        
     def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
-        ans = []
+
         nums.sort()
-        self.recur(nums, 0, [], ans)
-        return ans
+
+        result = set()
+
+        for i in range(pow(2,len(nums))):
+            temp = i
+            idx = 0
+            take = []
+            while(temp):
+                if temp & 1:
+                    take.append(nums[idx])
+                idx += 1
+                temp = temp >> 1
+            result.add(tuple(take))
+        
+        return [list(ele) for ele in result]
+        
+        
+
+
         
