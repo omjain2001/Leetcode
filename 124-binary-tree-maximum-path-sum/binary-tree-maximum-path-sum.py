@@ -5,22 +5,26 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    maxi = -3 * 10**7
-    def recur(self, root: Optional[TreeNode]) -> int:
-        if root is None:
-            return 0
-        left = self.recur(root.left)
-        right = self.recur(root.right)
-        
-        # Update maximum
-        self.maxi = max(self.maxi, left + right + root.val)
-        # val = max(root.val, root.val + max(left, right))
-        val = root.val + max(left, right)
-        if val < 0:
-            return 0
-        return val
-
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
-        self.recur(root)
-        return self.maxi
+
+        maxi = -1e10
+
+        def recur(node):
+            nonlocal maxi
+            if node is None:
+                return 0
+            
+            left = recur(node.left)
+            right = recur(node.right)
+
+            maxi = max(maxi, node.val + left + right)
+
+            return max(node.val + max(left, right), 0)
+        
+        recur(root)
+
+        return maxi
+
+
+
         
